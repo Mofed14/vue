@@ -62,8 +62,8 @@ export default {
             Vue.$toast.error("ادخل البيانات المطلوبه");
           } else {
             if (res.data.token) {
-              this.$router.push("/resource");
               localStorage.setItem('token', res.data.token)
+              this.$router.push("/resource");
               Vue.$toast.success("تم الدخول بنجاح");
             } else {
               Vue.$toast.error("ادخل البيانات المطلوبه");
