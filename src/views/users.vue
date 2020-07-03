@@ -17,18 +17,28 @@
           </thead>
           <tbody>
             <tr v-for="(user, i) in users" :key="i">
-              <td>{{user.id}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.first_name}}</td>
-              <td>{{user.last_name}}</td>
+              <td>{{ user.id }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.first_name }}</td>
+              <td>{{ user.last_name }}</td>
               <td>
-                  <img :src="user.avatar" />
+                <img :src="user.avatar" />
               </td>
             </tr>
           </tbody>
         </table>
-        <a class="btn btn-success mb-4" v-if="more.page < more.total_pages" @click="getMore()">More</a>
-        <a class="btn btn-success mb-4" v-if="more.page >= more.total_pages" @click="getLess()">Less</a>
+        <a
+          class="btn btn-success mb-4"
+          v-if="more.page < more.total_pages"
+          @click="getMore()"
+          >More</a
+        >
+        <a
+          class="btn btn-warning mb-4"
+          v-if="more.page >= more.total_pages"
+          @click="getLess()"
+          >Less</a
+        >
       </div>
     </div>
   </div>
@@ -41,7 +51,7 @@ export default {
   name: "Users",
   data() {
     return {
-      page : 1,
+      page: 1,
       url: "https://reqres.in/api/users?page=",
       users: [],
       more: [],
@@ -49,17 +59,16 @@ export default {
   },
   mounted() {
     this.getUsers();
-    
   },
   methods: {
     getUsers(page) {
       console.log(page);
       axios
-        .get(this.url + this.page )
+        .get(this.url + this.page)
         .then((res) => {
           this.more = res.data;
           console.log(this.more);
-          
+
           if (!res.data.data.length) {
             Vue.$toast.error("Not Found Any Data Here");
           } else {
@@ -71,12 +80,12 @@ export default {
           Vue.$toast.error(err.message);
         });
     },
-    getMore(){
-      this.getUsers(this.page += 1)
+    getMore() {
+      this.getUsers((this.page += 1));
     },
-    getLess(){
-      this.getUsers(this.page -= 1)
-    }
+    getLess() {
+      this.getUsers((this.page -= 1));
+    },
   },
 };
 </script>
