@@ -13,6 +13,7 @@
               <th>Yeare</th>
               <th>Color</th>
               <th>Pantone_Value</th>
+              <th>Single Resource</th>
             </tr>
           </thead>
           <tbody>
@@ -22,6 +23,9 @@
               <td>{{resource.year}}</td>
               <td>{{resource.color}}</td>
               <td>{{resource.pantone_value}}</td>
+              <td>
+                <router-link :to="'/homeafterlogin/singleresource/' +  resource.id ">Read more</router-link>
+              </td>
             </tr>
           </tbody>
         </table>

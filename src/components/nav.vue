@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item">
                   <router-link to="/homeafterlogin/resources">
-                    <a class="resources nav-link">Resources</a>
+                    <a class="resources nav-link mr-2">Resources</a>
                   </router-link>
                 </li>
                 <li class="nav-item">

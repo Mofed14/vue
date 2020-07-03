@@ -6,7 +6,10 @@ import Register from "../views/register.vue";
 import HomeAfterLogin from "../views/HomeAfterLogin.vue";
 import Resources from "../views/resources.vue";
 import Users from "../views/users.vue";
+import SingleResource from "../views/single-resource.vue";
 Vue.use(Router);
+
+
 
 const router = new Router({
   mode: "history",
@@ -56,6 +59,10 @@ const router = new Router({
         {
           path: "/homeafterlogin/resources",
           component: Resources,
+        },{
+          
+          path: "/homeafterlogin/singleresource/:id",
+          component: SingleResource,
         },
       ],
     },
