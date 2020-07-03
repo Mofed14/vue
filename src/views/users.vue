@@ -5,7 +5,7 @@
         <h1 class="display-4 text-center">Users</h1>
       </div>
       <div class="col-md-12 mt-4">
-        <a class="btn btn-primary">Add New User</a>
+        <a @click="showAdd()" class="btn btn-primary">Add New User</a>
         <table class="table table-dark mt-4">
           <thead>
             <tr>
@@ -28,7 +28,7 @@
                 <img :src="user.avatar" />
               </td>
               <td>
-                <a class="btn btn-warning">Update</a>
+                <a @click="show()" class="btn btn-warning">Update</a>
               </td>
               <td>
                 <a @click="remove(user.id)" class="btn btn-danger">Deleted</a>
@@ -50,19 +50,30 @@
         >
       </div>
     </div>
+    <modal name="edit">
+      <Edit />
+    </modal>
+    <modal name="add">
+      <Add />
+    </modal>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Vue from "vue";
+import  Edit  from "@/components/edit";
+import  Add  from "@/components/adduser";
 export default {
   name: "Users",
+  components: {
+    Edit,Add
+  },
   data() {
     return {
       page: 1,
       urlGetUsers: "https://reqres.in/api/users?page=",
-      urlDeleteUser : "https://reqres.in/api/users/",
+      urlDeleteUser: "https://reqres.in/api/users/",
       users: [],
       more: [],
     };
@@ -96,17 +107,31 @@ export default {
     getLess() {
       this.getUsers((this.page -= 1));
     },
-    remove(id){
-      axios.delete(this.urlDeleteUser + id).then(res=>{
-        if(res){
-          console.log(res);
-          
-          Vue.$toast.success("The User Is Deleted")
-        }
-      }).catch(err=>{
-        Vue.$toast.error(err.message)
-      })
-    }
+    remove(id) {
+      axios
+        .delete(this.urlDeleteUser + id)
+        .then((res) => {
+          if (res) {
+            console.log(res);
+            Vue.$toast.success("The User Is Deleted");
+          }
+        })
+        .catch((err) => {
+          Vue.$toast.error(err.message);
+        });
+    },
+    show() {
+      this.$modal.show("edit");
+    },
+    hide() {
+      this.$modal.hide("edit");
+    },
+    showAdd() {
+      this.$modal.show("add");
+    },
+    hideAdd() {
+      this.$modal.hide("add");
+    },
   },
 };
 </script>
