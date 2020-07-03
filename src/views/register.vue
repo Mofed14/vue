@@ -50,6 +50,10 @@ export default {
   },
   methods: {
     register() {
+      if(!this.email || !this.password){
+        Vue.$toast.error('Enter The required data');
+        return
+      }
       axios
         .post("https://reqres.in/api/register", {
           email: this.email,
@@ -57,8 +61,8 @@ export default {
         })
         .then((res) => {
           if (res.data.token) {
-            this.$router.push("/resource");
             localStorage.setItem("token", res.data.token);
+            this.$router.push("/homeafterlogin");
             Vue.$toast.success("Done");
           } else {
             Vue.$toast.error("There is Error");

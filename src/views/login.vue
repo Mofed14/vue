@@ -45,29 +45,28 @@ export default {
     return {
       email: "",
       password: "",
-      error: "",
+      isLoading: false,
     };
   },
   methods: {
     login() {
+      if (!this.email || !this.password) {
+        Vue.$toast.error("Enter the required data");
+
+        return;
+      }
       axios
         .post("https://reqres.in/api/login", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
-          if (!this.email) {
-            Vue.$toast.error("ادخل البيانات المطلوبه");
-          } else if (!this.password) {
-            Vue.$toast.error("ادخل البيانات المطلوبه");
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+            this.$router.push("/homeafterlogin");
+            Vue.$toast.success("Done");
           } else {
-            if (res.data.token) {
-              localStorage.setItem('token', res.data.token)
-              this.$router.push("/resource");
-              Vue.$toast.success("تم الدخول بنجاح");
-            } else {
-              Vue.$toast.error("ادخل البيانات المطلوبه");
-            }
+            Vue.$toast.error("Enter the required data");
           }
         })
         .catch((err) => {
