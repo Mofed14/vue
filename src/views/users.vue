@@ -5,7 +5,8 @@
         <h1 class="display-4 text-center">Users</h1>
       </div>
       <div class="col-md-12 mt-4">
-        <table class="table table-dark">
+        <a class="btn btn-primary">Add New User</a>
+        <table class="table table-dark mt-4">
           <thead>
             <tr>
               <th>ID</th>
@@ -13,6 +14,8 @@
               <th>FirstName</th>
               <th>LasttName</th>
               <th>Avatar</th>
+              <th>Update</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -23,6 +26,12 @@
               <td>{{ user.last_name }}</td>
               <td>
                 <img :src="user.avatar" />
+              </td>
+              <td>
+                <a class="btn btn-warning">Update</a>
+              </td>
+              <td>
+                <a @click="remove(user.id)" class="btn btn-danger">Deleted</a>
               </td>
             </tr>
           </tbody>
@@ -52,7 +61,8 @@ export default {
   data() {
     return {
       page: 1,
-      url: "https://reqres.in/api/users?page=",
+      urlGetUsers: "https://reqres.in/api/users?page=",
+      urlDeleteUser : "https://reqres.in/api/users/",
       users: [],
       more: [],
     };
@@ -64,7 +74,7 @@ export default {
     getUsers(page) {
       console.log(page);
       axios
-        .get(this.url + this.page)
+        .get(this.urlGetUsers + this.page)
         .then((res) => {
           this.more = res.data;
           console.log(this.more);
@@ -86,6 +96,17 @@ export default {
     getLess() {
       this.getUsers((this.page -= 1));
     },
+    remove(id){
+      axios.delete(this.urlDeleteUser + id).then(res=>{
+        if(res){
+          console.log(res);
+          
+          Vue.$toast.success("The User Is Deleted")
+        }
+      }).catch(err=>{
+        Vue.$toast.error(err.message)
+      })
+    }
   },
 };
 </script>

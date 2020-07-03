@@ -1,10 +1,10 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-3 mt-4">
-                <h1 class="display-4 text-center">Resources</h1>
-            </div>
-            <div class="col-md-12 mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-3 mt-4">
+        <h1 class="display-4 text-center">Resources</h1>
+      </div>
+      <div class="col-md-12 mt-4">
         <table class="table table-dark">
           <thead>
             <tr>
@@ -18,29 +18,31 @@
           </thead>
           <tbody>
             <tr v-for="(resource, i) in resources" :key="i">
-              <td>{{resource.id}}</td>
-              <td>{{resource.name}}</td>
-              <td>{{resource.year}}</td>
-              <td>{{resource.color}}</td>
-              <td>{{resource.pantone_value}}</td>
+              <td>{{ resource.id }}</td>
+              <td>{{ resource.name }}</td>
+              <td>{{ resource.year }}</td>
+              <td>{{ resource.color }}</td>
+              <td>{{ resource.pantone_value }}</td>
               <td>
-                <router-link :to="'/homeafterlogin/singleresource/' +  resource.id ">Read more</router-link>
+                <router-link
+                  :to="'/homeafterlogin/singleresource/' + resource.id"
+                  >Read more</router-link
+                >
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-        </div>
     </div>
+  </div>
 </template>
-
 
 <script>
 import axios from "axios";
 import Vue from "vue";
 export default {
-    name : "Resource",
-    data() {
+  name: "Resource",
+  data() {
     return {
       url: "https://reqres.in/api/unknown",
       resources: [],
@@ -65,5 +67,6 @@ export default {
           Vue.$toast.error(err.message);
         });
     },
-}}
+  },
+};
 </script>
