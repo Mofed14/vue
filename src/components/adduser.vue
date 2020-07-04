@@ -3,20 +3,20 @@
     <form>
       <h1 class="display-4 text-center">Add User</h1>
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
+      <label >Name</label>
       <input
-        type="email"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        name="name"
+        v-model="name"
       />
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" />
+      <label>job</label>
+      <input type="text"  class="form-control"  name="job" v-model="job" />
     </div>
     
-    <button type="submit" class="btn btn-primary mb-2">Add</button>
+    <a @click="addUser()" class="btn btn-primary mb-2">Add</a>
   </form>
   </div>
 
@@ -24,7 +24,36 @@
 
 
 <script>
+import Vue from "vue";
+import axios from "axios";
 export default {
-    name : "Add"
+    name : "Add",
+    data(){
+      return {
+        UrlAddUser : "https://reqres.in/api/users",
+        name : "",
+        job  : "",
+        user: {},
+      }
+    },
+    methods : {
+      addUser(){
+        if (!this.name || !this.job) {
+          Vue.$toast.error("Enter The Required Data")
+        } else {
+          axios.post(this.UrlAddUser, {
+            name : this.name,
+            job : this.job
+          }).then(res=>{
+           this.user = res.data;
+           console.log(this.user);
+           
+          }).catch(err=>{
+            Vue.$toast.error(err.message)
+          })
+        }
+      }
+    }
+    
 }
 </script>

@@ -38,35 +38,18 @@
 </template>
 
 <script>
-import axios from "axios";
-import Vue from "vue";
 export default {
   name: "Resource",
   data() {
-    return {
-      url: "https://reqres.in/api/unknown",
-      resources: [],
-    };
+    return {};
+  },
+  computed: {
+    resources() {
+      return this.$store.state.resources;
+    },
   },
   mounted() {
-    this.getResources();
-  },
-  methods: {
-    getResources() {
-      axios
-        .get(this.url)
-        .then((res) => {
-          if (!res.data.data.length) {
-            Vue.$toast.error("Not Found Any Data Here");
-          } else {
-            this.resources = res.data.data;
-            console.log(this.resources);
-          }
-        })
-        .catch((err) => {
-          Vue.$toast.error(err.message);
-        });
-    },
+    this.$store.dispatch("getResources");
   },
 };
 </script>

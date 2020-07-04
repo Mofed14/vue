@@ -25,6 +25,7 @@
 
 <script>
 export default {
-    name : "Edit"
+    name : "Edit",
+    // props:['users.id']
 }
 </script>

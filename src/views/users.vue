@@ -51,7 +51,30 @@
       </div>
     </div>
     <modal name="edit">
-      <Edit />
+      <div class="container">
+        <form>
+          <h1 class="display-4 text-center">Edit User</h1>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary mb-2">Update</button>
+        </form>
+      </div>
     </modal>
     <modal name="add">
       <Add />
@@ -62,47 +85,47 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
-import  Edit  from "@/components/edit";
-import  Add  from "@/components/adduser";
+// import Edit from "@/components/edit";
+import Add from "@/components/adduser";
 export default {
   name: "Users",
   components: {
-    Edit,Add
+    // Edit,
+    Add,
   },
   data() {
     return {
       page: 1,
-      urlGetUsers: "https://reqres.in/api/users?page=",
       urlDeleteUser: "https://reqres.in/api/users/",
-      users: [],
-      more: [],
+      UrlUpdateUSer:"https://reqres.in/api/users/",
+      form : {
+        name : "",
+        job : ""
+      }
     };
   },
+  computed:{
+    users(){
+      return this.$store.state.users;
+    },
+    more(){
+      return this.$store.state.more;
+    }
+  },
   mounted() {
-    this.getUsers();
+    this.getUsers()
   },
   methods: {
-    getUsers(page) {
-      console.log(page);
-      axios
-        .get(this.urlGetUsers + this.page)
-        .then((res) => {
-          this.more = res.data;
-          console.log(this.more);
+    
+    getUsers(){
+  this.$store.dispatch("getUsers", this.page)
 
-          if (!res.data.data.length) {
-            Vue.$toast.error("Not Found Any Data Here");
-          } else {
-            this.users = res.data.data;
-            console.log(this.users);
-          }
-        })
-        .catch((err) => {
-          Vue.$toast.error(err.message);
-        });
     },
+
     getMore() {
-      this.getUsers((this.page += 1));
+          this.getUsers((this.page += 1));
+
+
     },
     getLess() {
       this.getUsers((this.page -= 1));
@@ -133,5 +156,16 @@ export default {
       this.$modal.hide("add");
     },
   },
+
+  EditUser(id){
+    if(!this.name || !this.job){
+      Vue.$toast.err("Enter The Required Data")
+    } else {
+      axios.put(this.UrlUpdateUSer + id).then(res=>{
+        console.log(res);
+        
+      }).catch()
+    }
+  }
 };
 </script>

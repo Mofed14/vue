@@ -17,11 +17,11 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{resource.id}}</td>
-              <td>{{resource.name}}</td>
-              <td>{{resource.year}}</td>
-              <td>{{resource.color}}</td>
-              <td>{{resource.pantone_value}}</td>
+              <td>{{ resource.id }}</td>
+              <td>{{ resource.name }}</td>
+              <td>{{ resource.year }}</td>
+              <td>{{ resource.color }}</td>
+              <td>{{ resource.pantone_value }}</td>
             </tr>
           </tbody>
         </table>
@@ -31,37 +31,24 @@
 </template>
 
 <script>
-import axios from "axios";
-import Vue from "vue";
-
 export default {
   name: "Single",
   data() {
     return {
-      url: "https://reqres.in/api/unknown/",
-      resource: {},
+      param: this.$route.params.id,
     };
+  },
+  computed: {
+    resource() {
+      return this.$store.state.resource;
+    },
   },
   mounted() {
     this.getSingleResource();
   },
   methods: {
     getSingleResource() {
-      axios
-        .get(this.url + this.$route.params.id)
-        .then((res) => {
-            if(!res.data.data){
-            Vue.$toast.error("Not Found Any Data Here");
-            } else {
-                this.resource = res.data.data;
-                console.log(this.resource);
-                
-                
-            }
-        })
-        .catch((err) => {
-          Vue.$toast.error(err.message);
-        });
+      this.$store.dispatch("getSingleResource", this.param);
     },
   },
 };
