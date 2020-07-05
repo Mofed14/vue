@@ -9,6 +9,9 @@ export default new Vuex.Store({
     resource: {},
     users: [],
     more: [],
+    user : {},
+    name : "",
+    job : ""
   },
   mutations: {
     Set_Resources(state, resources){
@@ -23,9 +26,11 @@ export default new Vuex.Store({
     },
     Set_MoreUsers(state, more){
       state.more = more
+    },
+    Set_User(state, user){
+      state.user = user;
+
     }
-    
-    
   },
   actions: {
     async getResources({commit}){
@@ -77,6 +82,13 @@ export default new Vuex.Store({
         .catch((err) => {
           Vue.$toast.error(err.message);
         });
+    },
+    async getUser({commit}, param){
+      axios.get(`https://reqres.in/api/users/${param}`).then(res=>{
+        console.log(res.data.data);
+        commit("Set_User", res.data.data)
+        
+      })
     },
   },
   modules: {},

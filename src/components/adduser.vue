@@ -47,6 +47,8 @@ export default {
           }).then(res=>{
            this.user = res.data;
            console.log(this.user);
+           this.$router.push("/homeafterlogin/users");
+
            
           }).catch(err=>{
             Vue.$toast.error(err.message)

@@ -7,6 +7,7 @@ import HomeAfterLogin from "../views/HomeAfterLogin.vue";
 import Resources from "../views/resources.vue";
 import Users from "../views/users.vue";
 import SingleResource from "../views/single-resource.vue";
+import EDitUser from "../components/edit.vue";
 Vue.use(Router);
 
 
@@ -64,6 +65,12 @@ const router = new Router({
           path: "/homeafterlogin/singleresource/:id",
           component: SingleResource,
         },
+        {
+          
+          path: "/homeafterlogin/edituser/:id",
+          component: EDitUser,
+        },
+        
       ],
     },
   ],

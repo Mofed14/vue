@@ -28,10 +28,13 @@
                 <img :src="user.avatar" />
               </td>
               <td>
-                <a @click="show()" class="btn btn-warning">Update</a>
+                   <router-link :to="'/homeafterlogin/edituser/' + user.id">
+
+                  <a   class="btn btn-warning">Update</a>
+                   </router-link>
               </td>
               <td>
-                <a @click="remove(user.id)" class="btn btn-danger">Deleted</a>
+                <a @click="remove(user.id, i)" class="btn btn-danger">Deleted</a>
               </td>
             </tr>
           </tbody>
@@ -50,32 +53,33 @@
         >
       </div>
     </div>
-    <modal name="edit">
+    <!-- <modal name="edit">
       <div class="container">
         <form>
           <h1 class="display-4 text-center">Edit User</h1>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label>name</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
+              id="name"
+              v-bind:value="user.first_name + ' ' + user.last_name"
+              
             />
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="exampleInputPassword1">job</label>
             <input
-              type="password"
+              type="text"
               class="form-control"
-              id="exampleInputPassword1"
+              id="job"
+              v-model="job"
             />
           </div>
-
-          <button type="submit" class="btn btn-primary mb-2">Update</button>
+          <a @click="updateuser(user.id)" class="btn btn-primary mb-2">Update</a>
         </form>
       </div>
-    </modal>
+    </modal> -->
     <modal name="add">
       <Add />
     </modal>
@@ -85,12 +89,10 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
-// import Edit from "@/components/edit";
 import Add from "@/components/adduser";
 export default {
   name: "Users",
   components: {
-    // Edit,
     Add,
   },
   data() {
@@ -98,10 +100,8 @@ export default {
       page: 1,
       urlDeleteUser: "https://reqres.in/api/users/",
       UrlUpdateUSer:"https://reqres.in/api/users/",
-      form : {
-        name : "",
-        job : ""
-      }
+      name : "",
+      job  : "",
     };
   },
   computed:{
@@ -110,7 +110,8 @@ export default {
     },
     more(){
       return this.$store.state.more;
-    }
+    },
+
   },
   mounted() {
     this.getUsers()
@@ -122,6 +123,7 @@ export default {
 
     },
 
+  
     getMore() {
           this.getUsers((this.page += 1));
 
@@ -130,13 +132,14 @@ export default {
     getLess() {
       this.getUsers((this.page -= 1));
     },
-    remove(id) {
+    remove(id, i) {
       axios
         .delete(this.urlDeleteUser + id)
         .then((res) => {
           if (res) {
             console.log(res);
             Vue.$toast.success("The User Is Deleted");
+            this.users.splice(i, 1)
           }
         })
         .catch((err) => {
@@ -155,17 +158,25 @@ export default {
     hideAdd() {
       this.$modal.hide("add");
     },
+
+    // updateUser(){
+    //     if (!this.name || !this.job) {
+    //       Vue.$toast.error("Enter The Required Data")
+    //     } else {
+    //       axios.put(this.UrlUpdateUSer + user.id, {
+    //         name : this.name,
+    //         job : this.job
+    //       }).then(res=>{
+    //        this.user = res.data;
+    //        console.log(this.user);
+           
+    //       }).catch(err=>{
+    //         Vue.$toast.error(err.message)
+    //       })
+    //     }
+    //   }
   },
 
-  EditUser(id){
-    if(!this.name || !this.job){
-      Vue.$toast.err("Enter The Required Data")
-    } else {
-      axios.put(this.UrlUpdateUSer + id).then(res=>{
-        console.log(res);
-        
-      }).catch()
-    }
-  }
+    
 };
 </script>

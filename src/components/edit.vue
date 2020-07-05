@@ -1,22 +1,21 @@
 <template>
 <div class="container">
     <form>
-      <h1 class="display-4 text-center">Edit User</h1>
+      <h1 class="display-4 text-center mt-4">Edit {{user.first_name + ' '  + user.last_name }}</h1>
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
+      <label>Name</label>
       <input
-        type="email"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        v-model="name"
+        
       />
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" />
+      <label >Job</label>
+      <input type="text" class="form-control" v-model="job" />
     </div>
-    
-    <button type="submit" class="btn btn-primary mb-2">Update</button>
+     <a @click="updateUser()" class="btn btn-primary mb-2">Update</a>
   </form>
   </div>
 
@@ -24,8 +23,49 @@
 
 
 <script>
+import Vue from "vue";
+import axios from "axios";
 export default {
+
     name : "Edit",
     // props:['users.id']
+    data() {
+    return {
+      UrlEditUser : "https://reqres.in/api/users/",
+      param: this.$route.params.id,
+      name: "",
+      job: ""
+    };
+  },
+    computed:{
+    user(){
+      return this.$store.state.user;
+    }
+    },
+    mounted() {
+    this.getUser();
+
+    },
+    methods:{
+      getUser(){
+    this.$store.dispatch("getUser",this.param)
+
+    },
+    updateUser(){
+      if(!this.name || !this.job){
+        Vue.$toast.error("Enter The Required Data")
+      } else {
+        axios.put(this.UrlEditUser + this.param,{
+          name : this.name,
+          job   :this.job
+        }).then(()=>{
+          Vue.$toast.success('The User Is Updated');
+           this.$router.push("/homeafterlogin");
+        }).catch(err=>{
+          Vue.$toast.error(err.message)
+        })
+      }
+    }
+    }
 }
 </script>
