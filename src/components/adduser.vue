@@ -4,11 +4,11 @@
       <h1 class="display-4 text-center">Add User</h1>
       <div class="form-group">
         <label>Name</label>
-        <input type="text" class="form-control" name="name" v-model="name" />
+        <input type="text" class="form-control" name="name" v-model="name"  autocomplete="off" />
       </div>
       <div class="form-group">
         <label>job</label>
-        <input type="text" class="form-control" name="job" v-model="job" />
+        <input type="text" class="form-control" name="job" v-model="job" autocomplete="off"/>
       </div>
       <a @click="addUser()" class="btn btn-primary mb-2">Add</a>
     </form>
