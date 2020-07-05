@@ -21,7 +21,12 @@
                 <h5 class="card-title">
                   Company : {{ singleresource.company }}
                 </h5>
-                <p class="card-text">Url : {{ singleresource.url }}</p>
+                <p class="card-text">
+                  Url :
+                  <a :href="singleresource.url" target="_blank">{{
+                    singleresource.url
+                  }}</a>
+                </p>
                 <p class="card-text">Color : {{ singleresource.text }}</p>
               </div>
             </div>
