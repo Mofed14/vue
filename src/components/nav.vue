@@ -50,7 +50,6 @@
 import Vue from "vue";
 
 export default {
-  name: "nav",
   methods: {
     logout() {
       localStorage.removeItem("token");

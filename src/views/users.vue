@@ -89,7 +89,6 @@ export default {
   },
   mounted() {
     this.getUsers()
-    this.onClickChild()
   },
   methods: {
     
