@@ -54,7 +54,7 @@ export default {
           })
           .then(() => {
             Vue.$toast.success("The User Is Updated");
-            this.$router.push("/homeafterlogin");
+            this.$router.push("/homeafterlogin/users");
           })
           .catch((err) => {
             Vue.$toast.error(err.message);
