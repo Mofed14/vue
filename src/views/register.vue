@@ -50,9 +50,9 @@ export default {
   },
   methods: {
     register() {
-      if(!this.email || !this.password){
-        Vue.$toast.error('Enter The required data');
-        return
+      if (!this.email || !this.password) {
+        Vue.$toast.error("Enter The required data");
+        return;
       }
       axios
         .post("https://reqres.in/api/register", {

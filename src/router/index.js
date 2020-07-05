@@ -10,8 +10,6 @@ import SingleResource from "../views/single-resource.vue";
 import EDitUser from "../components/edit.vue";
 Vue.use(Router);
 
-
-
 const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
@@ -49,7 +47,7 @@ const router = new Router({
       children: [
         {
           path: "/homeafterlogin",
-          component: Users,
+          component: Resources,
           pathMatch: "full",
         },
         {
@@ -60,17 +58,15 @@ const router = new Router({
         {
           path: "/homeafterlogin/resources",
           component: Resources,
-        },{
-          
+        },
+        {
           path: "/homeafterlogin/singleresource/:id",
           component: SingleResource,
         },
         {
-          
           path: "/homeafterlogin/edituser/:id",
           component: EDitUser,
         },
-        
       ],
     },
   ],

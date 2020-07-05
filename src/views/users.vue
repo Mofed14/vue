@@ -28,19 +28,18 @@
                 <img :src="user.avatar" />
               </td>
               <td>
-                   <router-link :to="'/homeafterlogin/edituser/' + user.id">
-
-                  <a   class="btn btn-warning">Update</a>
-                   </router-link>
+                <router-link :to="'/homeafterlogin/edituser/' + user.id">
+                  <a class="btn btn-warning">Update</a>
+                </router-link>
               </td>
               <td>
-                <a @click="remove(user.id, i)" class="btn btn-danger">Deleted</a>
+                <a @click="remove(user.id, i)" class="btn btn-danger">Delete</a>
               </td>
             </tr>
           </tbody>
         </table>
         <a
-          class="btn btn-success mb-4"
+          class="btn btn-success mb-4 float-right"
           v-if="more.page < more.total_pages"
           @click="getMore()"
           >More</a
@@ -54,8 +53,7 @@
       </div>
     </div>
     <modal name="add">
-      <Add  @clicked="hideAdd()"/>
-      
+      <Add @clicked="hideAdd()" />
     </modal>
   </div>
 </template>
@@ -73,35 +71,29 @@ export default {
     return {
       page: 1,
       urlDeleteUser: "https://reqres.in/api/users/",
-      UrlUpdateUSer:"https://reqres.in/api/users/",
-      name : "",
-      job  : "",
+      UrlUpdateUSer: "https://reqres.in/api/users/",
+      name: "",
+      job: "",
     };
   },
-  computed:{
-    users(){
+  computed: {
+    users() {
       return this.$store.state.users;
     },
-    more(){
+    more() {
       return this.$store.state.more;
     },
-
   },
   mounted() {
-    this.getUsers()
+    this.getUsers();
   },
   methods: {
-    
-    getUsers(){
-  this.$store.dispatch("getUsers", this.page)
-
+    getUsers() {
+      this.$store.dispatch("getUsers", this.page);
     },
 
-  
     getMore() {
-          this.getUsers((this.page += 1));
-
-
+      this.getUsers((this.page += 1));
     },
     getLess() {
       this.getUsers((this.page -= 1));
@@ -113,7 +105,7 @@ export default {
           if (res) {
             console.log(res);
             Vue.$toast.success("The User Is Deleted");
-            this.users.splice(i, 1)
+            this.users.splice(i, 1);
           }
         })
         .catch((err) => {
@@ -128,7 +120,5 @@ export default {
       this.$modal.hide("add");
     },
   },
-
-    
 };
 </script>

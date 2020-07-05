@@ -4,9 +4,9 @@ import router from "./router";
 import store from "./store";
 import "./assets/main.scss";
 
-import VModal from 'vue-js-modal'
- 
-Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
+import VModal from "vue-js-modal";
+
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true });
 Vue.config.productionTip = false;
 
 import VueToast from "vue-toast-notification";

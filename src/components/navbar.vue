@@ -16,12 +16,12 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item" >
+          <li class="nav-item">
             <router-link to="/login">
               <a class="nav-link btn btn-primary mt-2 mr-2">Login</a>
             </router-link>
           </li>
-          <li class="nav-item" >
+          <li class="nav-item">
             <router-link to="register">
               <a class="nav-link mt-2 btn btn-success">Register</a>
             </router-link>

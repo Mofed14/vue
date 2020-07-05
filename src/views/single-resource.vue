@@ -5,26 +5,28 @@
         <h1 class="display-4 text-center">Single Resources</h1>
       </div>
       <div class="col-md-12">
-        <table class="table table-dark mt-4" v-if="resource || resource.length">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>year</th>
-              <th>color</th>
-              <th>Pantone_Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ resource.id }}</td>
-              <td>{{ resource.name }}</td>
-              <td>{{ resource.year }}</td>
-              <td>{{ resource.color }}</td>
-              <td>{{ resource.pantone_value }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="card mt-4">
+          <h5 class="card-header">User Information</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h5 class="card-title">name : {{ resource.name }}</h5>
+                <p class="card-text">Year : {{ resource.year }}</p>
+                <p class="card-text">Color : {{ resource.color }}</p>
+                <p class="card-text">
+                  Pantone_value : {{ resource.pantone_value }}
+                </p>
+              </div>
+              <div class="col-6">
+                <h5 class="card-title">
+                  Company : {{ singleresource.company }}
+                </h5>
+                <p class="card-text">Url : {{ singleresource.url }}</p>
+                <p class="card-text">Color : {{ singleresource.text }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -41,6 +43,9 @@ export default {
   computed: {
     resource() {
       return this.$store.state.resource;
+    },
+    singleresource() {
+      return this.$store.state.singleresource;
     },
   },
   mounted() {
