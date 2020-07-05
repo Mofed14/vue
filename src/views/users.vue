@@ -53,35 +53,9 @@
         >
       </div>
     </div>
-    <!-- <modal name="edit">
-      <div class="container">
-        <form>
-          <h1 class="display-4 text-center">Edit User</h1>
-          <div class="form-group">
-            <label>name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              v-bind:value="user.first_name + ' ' + user.last_name"
-              
-            />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">job</label>
-            <input
-              type="text"
-              class="form-control"
-              id="job"
-              v-model="job"
-            />
-          </div>
-          <a @click="updateuser(user.id)" class="btn btn-primary mb-2">Update</a>
-        </form>
-      </div>
-    </modal> -->
     <modal name="add">
-      <Add />
+      <Add  @clicked="hideAdd()"/>
+      
     </modal>
   </div>
 </template>
@@ -115,6 +89,7 @@ export default {
   },
   mounted() {
     this.getUsers()
+    this.onClickChild()
   },
   methods: {
     
@@ -146,35 +121,13 @@ export default {
           Vue.$toast.error(err.message);
         });
     },
-    show() {
-      this.$modal.show("edit");
-    },
-    hide() {
-      this.$modal.hide("edit");
-    },
+
     showAdd() {
       this.$modal.show("add");
     },
     hideAdd() {
       this.$modal.hide("add");
     },
-
-    // updateUser(){
-    //     if (!this.name || !this.job) {
-    //       Vue.$toast.error("Enter The Required Data")
-    //     } else {
-    //       axios.put(this.UrlUpdateUSer + user.id, {
-    //         name : this.name,
-    //         job : this.job
-    //       }).then(res=>{
-    //        this.user = res.data;
-    //        console.log(this.user);
-           
-    //       }).catch(err=>{
-    //         Vue.$toast.error(err.message)
-    //       })
-    //     }
-    //   }
   },
 
     

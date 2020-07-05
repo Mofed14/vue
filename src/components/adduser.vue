@@ -15,7 +15,6 @@
       <label>job</label>
       <input type="text"  class="form-control"  name="job" v-model="job" />
     </div>
-    
     <a @click="addUser()" class="btn btn-primary mb-2">Add</a>
   </form>
   </div>
@@ -47,9 +46,9 @@ export default {
           }).then(res=>{
            this.user = res.data;
            console.log(this.user);
-           this.$router.push("/homeafterlogin/users");
-
-           
+           Vue.$toast.success("The New User Is Inserted")
+          //  this.$store.dispatch('getUsers');
+           this.$emit('clicked', 'someValue')
           }).catch(err=>{
             Vue.$toast.error(err.message)
           })
